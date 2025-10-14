@@ -51,11 +51,19 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [board, over])
 
+  // --- Restart Game ---
+  // Resets board, score, and game over state
+  const restart = () => {
+    setBoard(addRandomTile(addRandomTile(emptyBoard(4))))
+    setScore(0)
+    setOver(false)
+  }
+
   return (
     <div className="container">
       <h1>2048 — React + TypeScript</h1>
       <BoardView board={board} />
-      {<div className="overlay">Game Over <button>Restart</button></div>}
+      {over && <div className="overlay">Game Over <button onClick={restart}>Restart</button></div>}
     </div>
   )
 }
