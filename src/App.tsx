@@ -102,28 +102,38 @@ export default function App() {
         2048 — React + TypeScript
       </h1>
 
-      {/* Score display with subtle shadow */}
-      <div className="text-lg mb-3 bg-white/70 px-4 py-2 rounded-lg shadow">
-        <strong>Score:</strong> {score}
-      </div>
+      <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-around w-full max-w-lg mx-auto mb-4 gap-4">
+        {/* Score */}
+        <div className="text-xl font-bold text-gray-800 bg-white/70 px-6 py-3 rounded-xl shadow-md flex items-center gap-3">
+          <span>🏆</span>
+          <div>
+            <span className="text-sm font-normal">Score</span>
+            <div className="text-2xl">{score}</div>
+          </div>
+        </div>
 
-      <div className="text-lg mb-3 bg-white/70 px-4 py-2 rounded-lg shadow flex items-center">
-        <label htmlFor="boardSize"><strong>Board Size:</strong></label>
-        <input
-          type="text"
-          id="boardSize"
-          value={inputValue}
-          onChange={handleInputChange}
-          onBlur={handleInputSubmit}
-          onKeyDown={handleKeyDown}
-          className="ml-2 w-16 text-center no-spinner"
-        />
-        <button
-          onClick={handleInputSubmit}
-          className="ml-2 px-3 py-1 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition text-sm"
-        >
-          Set
-        </button>
+        {/* Board Size */}
+        <div className="text-lg bg-white/70 px-4 py-2 rounded-xl shadow-md flex items-center gap-2">
+          <label htmlFor="boardSize" className="font-bold flex items-center gap-2">
+            <span>📏</span>
+            <span>Board Size:</span>
+          </label>
+          <input
+            type="text"
+            id="boardSize"
+            value={inputValue}
+            onChange={handleInputChange}
+            onBlur={handleInputSubmit}
+            onKeyDown={handleKeyDown}
+            className="ml-2 w-16 text-center rounded-md border-2 border-gray-300 focus:border-amber-500 focus:ring-amber-500"
+          />
+          <button
+            onClick={handleInputSubmit}
+            className="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition"
+          >
+            Set
+          </button>
+        </div>
       </div>
 
       {/* Game Board */}
