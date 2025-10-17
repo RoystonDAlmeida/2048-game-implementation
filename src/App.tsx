@@ -96,7 +96,7 @@ export default function App() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-amber-100 via-orange-100 to-yellow-100 p-6"
+      className="flex flex-col items-center justify-center min-h-screen w-screen bg-gradient-to-br from-amber-100 via-orange-100 to-yellow-100 p-6"
     >
       <h1 className="text-4xl font-bold mb-4 text-[#92400e] drop-shadow-md">
         2048 — React + TypeScript
@@ -148,11 +148,33 @@ export default function App() {
       )}
 
       {/* Optional Controls (mobile-friendly) */}
-      <div className="mt-6 grid grid-cols-3 gap-2 sm:hidden">
-        <button onClick={() => handleMove('up')} className="col-span-3 py-2 bg-amber-300 rounded-md">↑</button>
-        <button onClick={() => handleMove('left')} className="py-2 bg-amber-300 rounded-md">←</button>
-        <button onClick={() => handleMove('down')} className="py-2 bg-amber-300 rounded-md">↓</button>
-        <button onClick={() => handleMove('right')} className="py-2 bg-amber-300 rounded-md">→</button>
+      <div className="mt-6 grid grid-cols-3 gap-3 sm:hidden w-full max-w-xs px-4">
+        <div></div> {/* top-left */}
+        <button
+          onClick={() => handleMove('up')}
+          className="w-16 h-16 flex items-center justify-center rounded-md text-white font-bold text-2xl bg-blue-400 hover:bg-blue-500 transition"
+        >
+          ↑
+        </button>
+        <div></div> {/* top-right */}
+        <button
+          onClick={() => handleMove('left')}
+          className="w-16 h-16 flex items-center justify-center rounded-md text-white font-bold text-2xl bg-green-400 hover:bg-green-500 transition"
+        >
+          ←
+        </button>
+        <button
+          onClick={() => handleMove('down')}
+          className="w-16 h-16 flex items-center justify-center rounded-md text-white font-bold text-2xl bg-red-400 hover:bg-red-500 transition"
+        >
+          ↓
+        </button>
+        <button
+          onClick={() => handleMove('right')}
+          className="w-16 h-16 flex items-center justify-center rounded-md text-white font-bold text-2xl bg-yellow-400 hover:bg-yellow-500 transition"
+        >
+          →
+        </button>
       </div>
 
       {/* Restart Button always visible */}
