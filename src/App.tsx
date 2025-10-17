@@ -4,6 +4,7 @@ import { emptyBoard, addRandomTile, move, hasMoves } from './game/logic'
 
 export default function App() {
   const [boardSize, setBoardSize] = useState(4);
+  const [inputValue, setInputValue] = useState(boardSize.toString());
   
   // Initialize the game board with two random tiles
   const [board, setBoard] = useState(() => addRandomTile(addRandomTile(emptyBoard(boardSize))))
@@ -16,6 +17,10 @@ export default function App() {
 
   // Track if the game is over
   const [over, setOver] = useState(false)
+
+  useEffect(() => {
+    setInputValue(boardSize.toString());
+  }, [boardSize]);
 
   // --- Handle Moves ---
   // Processes a move in the given direction
@@ -67,15 +72,27 @@ export default function App() {
     setOver(false)
   }
 
-  const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSize = parseInt(e.target.value, 10);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleInputSubmit = () => {
+    const newSize = parseInt(inputValue, 10);
     if (!isNaN(newSize) && newSize > 1) {
       setBoardSize(newSize);
       setBoard(addRandomTile(addRandomTile(emptyBoard(newSize))));
       setScore(0);
       setOver(false);
+    } else {
+      setInputValue(boardSize.toString());
     }
-  }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleInputSubmit();
+    }
+  };
 
   return (
     <div
@@ -90,15 +107,23 @@ export default function App() {
         <strong>Score:</strong> {score}
       </div>
 
-      <div className="text-lg mb-3 bg-white/70 px-4 py-2 rounded-lg shadow">
+      <div className="text-lg mb-3 bg-white/70 px-4 py-2 rounded-lg shadow flex items-center">
         <label htmlFor="boardSize"><strong>Board Size:</strong></label>
         <input
-          type="number"
+          type="text"
           id="boardSize"
-          value={boardSize}
-          onChange={handleSizeChange}
+          value={inputValue}
+          onChange={handleInputChange}
+          onBlur={handleInputSubmit}
+          onKeyDown={handleKeyDown}
           className="ml-2 w-16 text-center no-spinner"
         />
+        <button
+          onClick={handleInputSubmit}
+          className="ml-2 px-3 py-1 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition text-sm"
+        >
+          Set
+        </button>
       </div>
 
       {/* Game Board */}
