@@ -3,8 +3,10 @@ import BoardView from './components/Board'
 import { emptyBoard, addRandomTile, move, hasMoves } from './game/logic'
 
 export default function App() {
+  const [boardSize, setBoardSize] = useState(4);
+  
   // Initialize the game board with two random tiles
-  const [board, setBoard] = useState(() => addRandomTile(addRandomTile(emptyBoard(4))))
+  const [board, setBoard] = useState(() => addRandomTile(addRandomTile(emptyBoard(boardSize))))
   
   // Track current score
   const [score, setScore] = useState(0)
@@ -60,9 +62,19 @@ export default function App() {
   // --- Restart Game ---
   // Resets board, score, and game over state
   const restart = () => {
-    setBoard(addRandomTile(addRandomTile(emptyBoard(4))))
+    setBoard(addRandomTile(addRandomTile(emptyBoard(boardSize))))
     setScore(0)
     setOver(false)
+  }
+
+  const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSize = parseInt(e.target.value, 10);
+    if (!isNaN(newSize) && newSize > 1) {
+      setBoardSize(newSize);
+      setBoard(addRandomTile(addRandomTile(emptyBoard(newSize))));
+      setScore(0);
+      setOver(false);
+    }
   }
 
   return (
@@ -76,6 +88,17 @@ export default function App() {
       {/* Score display with subtle shadow */}
       <div className="text-lg mb-3 bg-white/70 px-4 py-2 rounded-lg shadow">
         <strong>Score:</strong> {score}
+      </div>
+
+      <div className="text-lg mb-3 bg-white/70 px-4 py-2 rounded-lg shadow">
+        <label htmlFor="boardSize"><strong>Board Size:</strong></label>
+        <input
+          type="number"
+          id="boardSize"
+          value={boardSize}
+          onChange={handleSizeChange}
+          className="ml-2 w-16 text-center no-spinner"
+        />
       </div>
 
       {/* Game Board */}
