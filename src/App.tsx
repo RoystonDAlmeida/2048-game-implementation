@@ -99,6 +99,22 @@ export default function App() {
         </div>
       )}
 
+      {/* Optional Controls (mobile-friendly) */}
+      <div className="mt-6 grid grid-cols-3 gap-2 sm:hidden">
+        <button onClick={() => handleMove('up')} className="col-span-3 py-2 bg-amber-300 rounded-md">↑</button>
+        <button onClick={() => handleMove('left')} className="py-2 bg-amber-300 rounded-md">←</button>
+        <button onClick={() => handleMove('down')} className="py-2 bg-amber-300 rounded-md">↓</button>
+        <button onClick={() => handleMove('right')} className="py-2 bg-amber-300 rounded-md">→</button>
+      </div>
+
+      {/* Restart Button always visible */}
+      <button
+        onClick={restart}
+        className="mt-4 text-sm text-gray-600 underline hover:text-amber-700 transition"
+      >
+        Restart Game
+      </button>
+
       {win && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="bg-white p-8 rounded-2xl shadow-lg text-center animate-bounce">
