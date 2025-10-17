@@ -1,3 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* When a new tile spawns */
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* When two tiles merge */
+@keyframes merge {
+  0% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.animate-pop {
+  animation: pop 0.25s ease-out;
+}
+
+.animate-merge {
+  animation: merge 0.25s ease-out;
+}
+
+/* === Win / Game Over Overlay === */
+.overlay-win, .overlay-gameover {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.overlay-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+h1 {
+  color: #92400e; /* fallback if Tailwind amber fails */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+button {
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
 body {
   font-family: system-ui, sans-serif;
   display: flex;
