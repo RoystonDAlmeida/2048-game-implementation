@@ -61,9 +61,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #faf8ef;
   margin: 0;
-  padding: 2rem;
 }
 .container { text-align: center; }
 .board {
