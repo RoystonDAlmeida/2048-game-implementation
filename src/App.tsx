@@ -9,6 +9,9 @@ export default function App() {
   // Track current score
   const [score, setScore] = useState(0)
 
+  // Track if the game is won
+  const [win, setWin] = useState(false)
+
   // Track if the game is over
   const [over, setOver] = useState(false)
 
@@ -25,6 +28,9 @@ export default function App() {
     const next = addRandomTile(nb)
     setBoard(next)
     setScore(score + s)
+
+    // 🆕 check for win
+    if (next.flat().includes(2048)) setWin(true)
 
     // Check if there are no more valid moves
     if (!hasMoves(next)) setOver(true)
@@ -60,10 +66,54 @@ export default function App() {
   }
 
   return (
-    <div className="container">
-      <h1>2048 — React + TypeScript</h1>
-      <BoardView board={board} />
-      {over && <div className="overlay">Game Over <button onClick={restart}>Restart</button></div>}
+    <div
+      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-amber-100 via-orange-100 to-yellow-100 p-6"
+    >
+      <h1 className="text-4xl font-bold mb-4 text-[#92400e] drop-shadow-md">
+        2048 — React + TypeScript
+      </h1>
+
+      {/* Score display with subtle shadow */}
+      <div className="text-lg mb-3 bg-white/70 px-4 py-2 rounded-lg shadow">
+        <strong>Score:</strong> {score}
+      </div>
+
+      {/* Game Board */}
+      <div className="transition-all duration-300 transform hover:scale-[1.01]">
+        <BoardView board={board} />
+      </div>
+
+      {/* Game Over Message */}
+      {over && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white p-8 rounded-2xl shadow-lg text-center animate-fadeIn">
+            <h2 className="text-2xl font-bold text-red-600 mb-2">Game Over!</h2>
+            <p className="mb-4 text-gray-700">Final Score: {score}</p>
+            <button
+              onClick={restart}
+              className="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition"
+            >
+              Restart Game
+            </button>
+          </div>
+        </div>
+      )}
+
+      {win && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white p-8 rounded-2xl shadow-lg text-center animate-bounce">
+            <h2 className="text-2xl font-bold text-green-600 mb-2">🎉 You Win!</h2>
+            <p className="mb-4 text-gray-700">Final Score: {score}</p>
+            <button
+              onClick={restart}
+              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+            >
+              Play Again
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }
